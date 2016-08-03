@@ -1,5 +1,5 @@
-# This for mono-opt under ubuntu 14.04.2
-FROM ubuntu:14.04.2
+# This for mono-opt under ubuntu 14.04.4
+FROM ubuntu:14.04.4
 
 MAINTAINER azraelrabbit <azraelrabbit@gmail.com>
 
@@ -27,7 +27,8 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/mono/lib
 ENV PKG_CONFIG_PATH $PKG_CONFIG_PATH:/opt/mono/lib/pkgconfig
 
 # install mono web server Jexus
-RUN cd /tmp && curl http://www.daqiao.io/5.6.4/install | sh
+#RUN cd /tmp && curl http://www.daqiao.io/5.6.4/install | sh
+RUN cd /tmp && wget linuxdot.net/down/jexus-5.8.1.tar.gz && tar -zxvf jexus-5.8.1.tar.gz  && cd jexus-5.8.1 && ./install && cd /tmp && rm -rf jexus*
 
 RUN mkdir /data 
 #&& touch /data/x && mkdir /data/jwslog && mkdir /data/siteconf && mkdir /data/wwwroot
@@ -52,5 +53,3 @@ EXPOSE 22  8081  80
 #ENTRYPOINT /usr/sbin/sshd -D 
 #CMD    ["/usr/sbin/sshd", "-D"]
 CMD  /usr/jexus/jws start && /usr/sbin/sshd -D
-
-
